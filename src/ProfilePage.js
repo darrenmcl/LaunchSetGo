@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { firebaseConfig } from './firebaseConfig.js';
 import { initializeApp } from 'firebase/app';
+import 'firebase/compat/firestore';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import './ProfilePage.css';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = firebase.firestore();
 
 function ProfilePage() {
   const [name, setName] = useState('');
@@ -44,21 +46,7 @@ function ProfilePage() {
 
   return (
     <div className="profile-page">
-      <h1>Profile Page</h1>
-      {isSubmitted && <p>Successfully registered!</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={name} onChange={handleNameChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type="email" value={email} onChange={handleEmailChange} />
-        </label>
-        <br />
-        <button type="submit">Save</button>
-      </form>
+      {/* ... */}
     </div>
   );
 }
