@@ -46,7 +46,18 @@ function ProfilePage() {
 
   return (
     <div className="profile-page">
-      {/* ... */}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={name} onChange={handleNameChange} />
+        </label>
+        <label>
+          Email:
+          <input type="email" value={email} onChange={handleEmailChange} />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+      {isSubmitted && <p>User created successfully!</p>}
     </div>
   );
 }

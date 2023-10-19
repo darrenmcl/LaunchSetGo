@@ -1,20 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './HomePage';
-import UserDashboard from './UserDashboard';
-import ProfilePage from './ProfilePage.js';
+import ProfilePage from './ProfilePage';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        {/* Add more routes here */}
-      </Routes>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
     </Router>
   );
-};
+}
 
 export default App;
