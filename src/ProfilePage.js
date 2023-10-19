@@ -25,8 +25,17 @@ function ProfilePage() {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, 'password')
       .then((userCredential) => {
-        // TODO: Save name and email to user's account
-        setIsSubmitted(true);
+        const user = userCredential.user;
+        db.collection('users').doc(user.uid).set({
+          name,
+          email,
+        })
+        .then(() => {
+          setIsSubmitted(true);
+        })
+        .catch((error) => {
+          console.error('Error adding user to database:', error);
+        });
       })
       .catch((error) => {
         console.error('Error creating user:', error);
