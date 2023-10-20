@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import firebase from 'firebase/compat/app';
 import { firebaseConfig } from './firebaseConfig.js';
 import { initializeApp } from 'firebase/app';
-import 'firebase/compat/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import './ProfilePage.css';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = firebase.firestore();
+const db = getFirestore(app);
 
 function ProfilePage() {
   const [name, setName] = useState('');
