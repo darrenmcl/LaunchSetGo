@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { getAuth, signOut } from 'firebase/auth';
 import './UserDashboard.css';
+import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebaseConfig.js';
-  
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-  
+
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,30 +22,25 @@ const UserDashboard = () => {
       }
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [navigate]);
 
   const handleLogout = async () => {
     try {
-      await auth.signOut();
+      await signOut(auth);
       console.log('Logged out successfully!');
     } catch (error) {
       console.error(error);
     }
   };
 
-  const goToProfile = () => {
-    navigate('/profile');
-  };
-
   return (
     <div>
+      {error && <p className="error-message">{error}</p>}
       {user ? (
         <div>
           <h1>Welcome, {user.email}!</h1>
-          <button onClick={handleLogout} className="goToProfileButton">Logout</button>
-          <button onClick={goToProfile} className="goToProfileButton">Go to Profile</button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <h1>Please log in to view your dashboard.</h1>
@@ -52,5 +48,6 @@ const UserDashboard = () => {
     </div>
   );
 };
-  
+
 export default UserDashboard;
+
