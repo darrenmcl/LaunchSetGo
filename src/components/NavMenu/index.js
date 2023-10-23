@@ -1,13 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import './NavMenu.css'; // Import styles
 
-const NavMenu = () => (
-  <div className="nav-menu">
-    <Link to="/dashboard" className="nav-item">Dashboard</Link>
-    <Link to="/profile" className="nav-item">Profile</Link>
-  </div>
-);
+const NavMenu = () => {
+  const handleLogout = () => {
+    // Logout logic here
+    console.log("Logged out");
+  };
+
+  return (
+    <div className="nav-menu">
+      <span>Menu</span>
+      <div className="menu-container">
+        <a className="nav-item" href="/dashboard">Dashboard</a>
+        <a className="nav-item" href="/profile">Profile</a>
+        <button className="nav-item" onClick={handleLogout}>Logout</button>
+      </div>
+    </div>
+  );
+};
 
 export default NavMenu;
+
+
+
+
 
