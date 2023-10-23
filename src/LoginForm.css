@@ -7,6 +7,16 @@ form {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+.button-margin {
+  margin: 10px;
+}
+
+.container {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 .success-message {
   color: green;
   text-align: center;

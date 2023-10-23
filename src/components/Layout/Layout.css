@@ -1,0 +1,15 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0px;
+  }
+  
+  .content {
+    margin-top: 0;
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+  }
+  

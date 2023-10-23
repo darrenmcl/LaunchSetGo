@@ -1,61 +1,48 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import './LoginForm.css';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const Login = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
-
   const navigate = useNavigate();
   const auth = getAuth();
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    console.log("Handle login started"); // Debugging
-
     try {
-      if (isSignUp) {
-        await createUserWithEmailAndPassword(auth, email, password);
-        console.log('Registered successfully!');
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log('Logged in successfully!');
-
-        // Debugging
-        console.log("Attempting to navigate to /dashboard");
-        
-        navigate('/dashboard');
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      // If login is successful, navigate to /dashboard
+      navigate('/dashboard');
     } catch (error) {
-      console.error("Error:", error); // Debugging
+      console.error('Login failed:', error);
     }
   };
 
   return (
-    <div className="login-form">
-      <h1>{isSignUp ? 'Sign Up' : 'Login'}</h1>
-      <form onSubmit={handleLogin} className="form-container">
-        <label className="form-label">
-          Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label className="form-label">
-          Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <button type="submit" className="center-button">
-          {isSignUp ? 'Sign Up' : 'Login'}
-        </button>
-      </form>
-      <button type="button" onClick={() => setIsSignUp(!isSignUp)} className="center-button">
-        {isSignUp ? 'Already registered? Log in!' : 'New here? Sign up!'}
-      </button>
-    </div>
+    <form onSubmit={handleLogin}>
+      <label>
+        Email:
+        <input type="email" value={email} onChange={handleEmailChange} />
+      </label>
+      <label>
+        Password:
+        <input type="password" value={password} onChange={handlePasswordChange} />
+      </label>
+      <button type="submit">Login</button>
+    </form>
   );
-  
 };
 
-export default Login;
+export default LoginForm;
+
+
+

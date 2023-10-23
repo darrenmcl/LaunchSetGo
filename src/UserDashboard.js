@@ -35,19 +35,22 @@ const UserDashboard = () => {
   };
 
   return (
-    <div>
+    <div className="user-dashboard">
       {error && <p className="error-message">{error}</p>}
       {user ? (
-        <div>
+        <div className="user-info">
           <h1>Welcome, {user.email}!</h1>
-          <button className="logout-button" onClick={handleLogout}>Logout</button>
+          <div className="user-actions">
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       ) : (
         <h1>Please log in to view your dashboard.</h1>
       )}
     </div>
   );
-};
+}
 
 export default UserDashboard;
+
 
